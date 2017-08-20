@@ -94,10 +94,22 @@ var address2 = "0x4c13184721de2d1b47a8875775ba3ce0b2e00ee0";
 
 var metacoin = web3.eth.contract(abi).at(address);
 var metacoin1 = web3.eth.contract(abi).at(address2);
+	
+document.getElementById("address").value = getCookie("address")
 
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i].trim();
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    }
+    return "";
+}
 
 function fun(){
 	var who=document.getElementById("address").value;
+	document.cookie = "address=" + who;
     document.getElementById("test").value = (metacoin1.balanceOf.call(who).toNumber() + metacoin.balanceOf.call(who).toNumber())/100000000;
 	strs=metacoin.find_contribution.call(who);
     	strs2=metacoin1.find_contribution.call(who);
